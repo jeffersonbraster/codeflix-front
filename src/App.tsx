@@ -1,18 +1,22 @@
-import { createTheme } from "@mui/material";
 import { Box, ThemeProvider } from "@mui/system";
-import "./App.css";
+import { Route, Routes } from "react-router-dom";
 import Header from "./components/Header";
 import Layout from "./components/Layout";
-
-const theme = createTheme({});
+import { appTheme } from "./config/theme";
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <Box component="main" sx={{ height: "100vh", backgroundColor: "#000" }}>
+    <ThemeProvider theme={appTheme}>
+      <Box
+        component="main"
+        sx={{
+          height: "100vh",
+          backgroundColor: (theme) => theme.palette.grey[900],
+        }}
+      >
         <Header />
         <Layout>
-          <h1>oie</h1>
+          <Routes>{/* <Route path="/" element={<Home />} /> */}</Routes>
         </Layout>
       </Box>
     </ThemeProvider>
