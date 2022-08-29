@@ -23,7 +23,7 @@ function App() {
           <Routes>
             <Route path="/" element={<ListCategory />} />
             <Route path="/categories" element={<ListCategory />} />
-            <Route path="/categories/create" element={<CreateCategory />} />
+            <Route path="/category/create" element={<CreateCategory />} />
             <Route path="/categories/edit/:id" element={<EditCategory />} />
 
             <Route
