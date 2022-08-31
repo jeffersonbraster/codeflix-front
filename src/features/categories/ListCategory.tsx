@@ -4,6 +4,7 @@ import {
   GridColDef,
   GridRenderCellParams,
   GridRowsProp,
+  GridToolbar,
 } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Link } from "react-router-dom";
@@ -75,6 +76,17 @@ const ListCategory = () => {
 
       <div style={{ height: 300, width: "100%" }}>
         <DataGrid
+          components={{ Toolbar: GridToolbar }}
+          componentsProps={{
+            toolbar: {
+              showQuickFilter: true,
+              quickFilterProps: { debounceMs: 500 },
+            },
+          }}
+          disableColumnSelector={true}
+          disableColumnFilter={true}
+          disableDensitySelector={true}
+          disableSelectionOnClick={true}
           rows={rows}
           columns={columns}
           rowsPerPageOptions={[10, 20, 50, 100]}
