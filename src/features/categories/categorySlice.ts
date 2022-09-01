@@ -31,9 +31,21 @@ const categoriesSlice = createSlice({
   name: "categories",
   initialState: initalState,
   reducers: {
-    addCategory: (state, action) => {},
-    removeCategory: (state, action) => {},
-    updateCategory: (state, action) => {},
+    addCategory: (state, action) => {
+      state.push(action.payload);
+    },
+    removeCategory: (state, action) => {
+      const index = state.findIndex(
+        (category) => category.id === action.payload.id
+      );
+      state.splice(index, 1);
+    },
+    updateCategory: (state, action) => {
+      const index = state.findIndex(
+        (category) => category.id === action.payload.id
+      );
+      state[index] = action.payload;
+    },
   },
 });
 
@@ -58,3 +70,5 @@ export const selectCategoryId = (state: RootState, id: string) => {
 };
 
 export default categoriesSlice.reducer;
+export const { addCategory, updateCategory, removeCategory } =
+  categoriesSlice.actions;
