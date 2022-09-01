@@ -14,6 +14,13 @@ import { selectCategories } from "./categorySlice";
 const ListCategory = () => {
   const categories = useAppSelector(selectCategories);
 
+  const componentProps = {
+    toolbar: {
+      showQuickFilter: true,
+      quickFilterProps: { debounceMs: 500 },
+    },
+  };
+
   const rows: GridRowsProp = categories.map((category) => ({
     id: category.id,
     name: category.name,
@@ -23,7 +30,7 @@ const ListCategory = () => {
   }));
 
   const columns: GridColDef[] = [
-    { field: "name", headerName: "Name", flex: 1 },
+    { field: "name", headerName: "Name", flex: 1, renderCell: renderNameCell },
     {
       field: "isActive",
       headerName: "Active",
@@ -39,6 +46,17 @@ const ListCategory = () => {
       renderCell: renderActionsCell,
     },
   ];
+
+  function renderNameCell(rowData: GridRenderCellParams) {
+    return (
+      <Link
+        style={{ textDecoration: "none" }}
+        to={`/categories/edit/${rowData.id}`}
+      >
+        <Typography color="primary">{rowData.value}</Typography>
+      </Link>
+    );
+  }
 
   function renderIsActiveCell(params: GridRenderCellParams) {
     return (
@@ -74,15 +92,10 @@ const ListCategory = () => {
         </Button>
       </Box>
 
-      <div style={{ height: 300, width: "100%" }}>
+      <Box sx={{ display: "flex", height: 500 }}>
         <DataGrid
           components={{ Toolbar: GridToolbar }}
-          componentsProps={{
-            toolbar: {
-              showQuickFilter: true,
-              quickFilterProps: { debounceMs: 500 },
-            },
-          }}
+          componentsProps={componentProps}
           disableColumnSelector={true}
           disableColumnFilter={true}
           disableDensitySelector={true}
@@ -91,7 +104,7 @@ const ListCategory = () => {
           columns={columns}
           rowsPerPageOptions={[10, 20, 50, 100]}
         />
-      </div>
+      </Box>
     </Box>
   );
 };
