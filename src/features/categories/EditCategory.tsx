@@ -4,8 +4,10 @@ import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { Category, selectCategoryId, updateCategory } from "./categorySlice";
 import CategoryForm from "./components/CategoryForm";
+import { useSnackbar } from "notistack";
 
 const EditCategory = () => {
+  const { enqueueSnackbar } = useSnackbar();
   const id = useParams<{ id: string }>().id || "";
 
   const [isDisabled, setIsDisabled] = useState(false);
@@ -19,6 +21,8 @@ const EditCategory = () => {
     e.preventDefault();
 
     dispatch(updateCategory(categoryState));
+
+    enqueueSnackbar("Category updated successfully", { variant: "success" });
   }
 
   const handleToggle = (e: ChangeEvent<HTMLInputElement>) => {

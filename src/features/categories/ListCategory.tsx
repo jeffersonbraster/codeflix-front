@@ -10,8 +10,10 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { removeCategory, selectCategories } from "./categorySlice";
+import { useSnackbar } from "notistack";
 
 const ListCategory = () => {
+  const { enqueueSnackbar } = useSnackbar();
   const categories = useAppSelector(selectCategories);
 
   const dispatch = useAppDispatch();
@@ -70,6 +72,8 @@ const ListCategory = () => {
 
   function handleDelete(id: string) {
     dispatch(removeCategory(id));
+
+    enqueueSnackbar("Category deleted successfully", { variant: "info" });
   }
 
   function renderActionsCell(params: GridRenderCellParams) {

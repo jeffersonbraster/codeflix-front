@@ -1,10 +1,12 @@
 import { Box, Paper, Typography } from "@mui/material";
+import { useSnackbar } from "notistack";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useAppDispatch } from "../../app/hooks";
 import { addCategory, Category } from "./categorySlice";
 import CategoryForm from "./components/CategoryForm";
 
 const CreateCategory = () => {
+  const { enqueueSnackbar } = useSnackbar();
   const [isDisabled, setIsDisabled] = useState(false);
 
   const [categoryState, setCategoryState] = useState<Category>({
@@ -23,6 +25,8 @@ const CreateCategory = () => {
     e.preventDefault();
 
     dispatch(addCategory(categoryState));
+
+    enqueueSnackbar("Category created successfully", { variant: "success" });
   }
 
   const handleToggle = (e: ChangeEvent<HTMLInputElement>) => {
